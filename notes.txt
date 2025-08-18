@@ -1,0 +1,17 @@
+18/08/25
+
+lvl1
+	popen:
+		-> começa pelo fd[0] (processo filho)
+		-> começa pelo STDOUT
+		-> 3 "exit(-1), 45 linhas ;
+
+	picoshell:
+
+
+
+
+
+
+lvl2
+	vbc:

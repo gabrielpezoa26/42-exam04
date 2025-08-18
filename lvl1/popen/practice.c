@@ -6,14 +6,14 @@
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:47:05 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/18 15:14:37 by gcesar-n         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:47:42 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 
-static void close_fodas(int fd[2])
+void close_fodas(int fd[2])
 {
 	close(fd[0]);
 	close(fd[1]);
@@ -32,9 +32,9 @@ int ft_popen(const char *file, char *const argv[], char type)
 
 	mango = fork();
 	if (mango == -1)
-		return(close_fodas(fd), -1);
-
-	// processo filho
+		return (close_fodas(fd), -1);
+	
+	//processo filho
 	if (mango == 0)
 	{
 		if (type == 'r')
@@ -60,8 +60,7 @@ int ft_popen(const char *file, char *const argv[], char type)
 		execvp(file, argv);
 		exit(-1);
 	}
-
-	// processo pai
+	//processo pai
 	if (type == 'r')
 	{
 		close(fd[1]);
@@ -73,4 +72,9 @@ int ft_popen(const char *file, char *const argv[], char type)
 		return (fd[1]);
 	}
 	return (-1);
+}
+
+int main()
+{
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:57:56 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/18 14:20:43 by gcesar-n         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:54:15 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int ft_popen(const char *file, char *const argv[], char type)
 		return (-1);
 
 	if (pipe(fd) == -1)
-		return (-1);
+		return (close_fd(fd), -1);
 
 	pid = fork();
 	if (pid == -1)
