@@ -2,9 +2,9 @@
 
 lvl1
 	popen:
-		-> começa pelo fd[0] (processo filho)
-		-> começa pelo STDOUT
-		-> 3 "exit(-1), 45 linhas ;
+		-> começa pelo fd[0] e STDOUT ;
+		-> 3 "exit(-1), 6 returns ;
+		-> usar uma parte da main() do subject ;
 
 	picoshell:
 

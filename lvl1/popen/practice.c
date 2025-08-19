@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 14:47:05 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/18 18:47:42 by gcesar-n         ###   ########.fr       */
+/*   Created: 2025/08/18 22:18:21 by gcesar-n          #+#    #+#             */
+/*   Updated: 2025/08/18 22:23:49 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 
-void close_fodas(int fd[2])
+static void close_fodas(int fd[2])
 {
 	close(fd[0]);
 	close(fd[1]);
@@ -26,15 +26,14 @@ int ft_popen(const char *file, char *const argv[], char type)
 
 	if (!file || !argv || (type != 'r' && type != 'w'))
 		return (-1);
-
+	
 	if (pipe(fd) == -1)
 		return (-1);
-
+		
 	mango = fork();
 	if (mango == -1)
 		return (close_fodas(fd), -1);
 	
-	//processo filho
 	if (mango == 0)
 	{
 		if (type == 'r')
@@ -60,7 +59,6 @@ int ft_popen(const char *file, char *const argv[], char type)
 		execvp(file, argv);
 		exit(-1);
 	}
-	//processo pai
 	if (type == 'r')
 	{
 		close(fd[1]);
@@ -74,7 +72,13 @@ int ft_popen(const char *file, char *const argv[], char type)
 	return (-1);
 }
 
+
+#include <stdio.h>
+
 int main()
 {
-	return (0);
+	int teste;
+
+	teste  = ft_popen("ls", (char *const []){"ls", NULL}, 'r');
+	printf("%d\n", teste);
 }
