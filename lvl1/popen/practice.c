@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 11:07:19 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/19 11:14:37 by gcesar-n         ###   ########.fr       */
+/*   Created: 2025/08/19 12:16:27 by gcesar-n          #+#    #+#             */
+/*   Updated: 2025/08/19 12:21:27 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int ft_popen(const char *file, char *const argv[], char type)
 	
 	if (pipe(fd) == -1)
 		return (-1);
-
+	
 	mango = fork();
 	if (mango == -1)
 		return (close_fodas(fd), -1);
@@ -69,15 +69,10 @@ int ft_popen(const char *file, char *const argv[], char type)
 		close(fd[0]);
 		return (fd[1]);
 	}
-	exit(-1);
+	return (-1);
 }
-
-#include <stdio.h>
 
 int main()
 {
-	int teste;
-
-	teste = ft_popen("ls", (char *const []){"ls", NULL}, 'r');
-	printf("%d\n", teste);
+	return (0);
 }
