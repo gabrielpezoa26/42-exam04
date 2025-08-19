@@ -3,8 +3,10 @@
 lvl1
 	popen:
 		-> começa pelo fd[0] e STDOUT ;
-		-> 3 "exit(-1), 6 returns ;
+		-> 3 "exit(-1)" ;
 		-> usar uma parte da main() do subject ;
+
+		-> --track-fds=yes ./a.out 
 
 	picoshell:
 

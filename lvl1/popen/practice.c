@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 22:18:21 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/18 22:23:49 by gcesar-n         ###   ########.fr       */
+/*   Created: 2025/08/19 11:07:19 by gcesar-n          #+#    #+#             */
+/*   Updated: 2025/08/19 11:14:37 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 static void close_fodas(int fd[2])
 {
@@ -29,11 +29,11 @@ int ft_popen(const char *file, char *const argv[], char type)
 	
 	if (pipe(fd) == -1)
 		return (-1);
-		
+
 	mango = fork();
 	if (mango == -1)
 		return (close_fodas(fd), -1);
-	
+
 	if (mango == 0)
 	{
 		if (type == 'r')
@@ -69,9 +69,8 @@ int ft_popen(const char *file, char *const argv[], char type)
 		close(fd[0]);
 		return (fd[1]);
 	}
-	return (-1);
+	exit(-1);
 }
-
 
 #include <stdio.h>
 
@@ -79,6 +78,6 @@ int main()
 {
 	int teste;
 
-	teste  = ft_popen("ls", (char *const []){"ls", NULL}, 'r');
+	teste = ft_popen("ls", (char *const []){"ls", NULL}, 'r');
 	printf("%d\n", teste);
 }
