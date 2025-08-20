@@ -8,7 +8,10 @@ lvl1
 
 
 	picoshell:
+		-> quase sempre vai comparar com -1
 
+		->na ultima parte, 5 e 5
+		-> tem UM "else if"
 
 
 
@@ -19,3 +22,4 @@ lvl2
 
 geral:
 		-> --track-fds=yes ./a.out 
+		-> cc FLAGS
