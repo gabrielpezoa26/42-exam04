@@ -5,10 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 16:44:56 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/20 16:52:58 by gcesar-n         ###   ########.fr       */
+/*   Created: 2025/08/21 11:33:42 by gcesar-n          #+#    #+#             */
+/*   Updated: 2025/08/21 11:42:34 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 int    picoshell(char **cmds[])
 {
@@ -18,12 +22,12 @@ int    picoshell(char **cmds[])
 	pid_t pid;
 	int status;
 	int fd[2];
-	int in_fd;
+	int in_fd = -1;
 	int result = 0;
 	int i = 0;
 	int kids = 0;
 
-
+	
 
 	while(cmds[i])
 	{
@@ -56,12 +60,12 @@ int    picoshell(char **cmds[])
 				close(fd[1]);
 				close(fd[0]);
 			}
-			execvp(cmds[i][0], [i]);
+			execvp(cmds[i][0], cmds[i]);
 			exit(1);
 		}
 
 
-		
+
 		kids++;
 		if (in_fd != -1)
 			close(in_fd);
@@ -76,8 +80,13 @@ int    picoshell(char **cmds[])
 	{
 		if (wait(&status) == -1)
 			result = 0;
-		else if(!WIFEXITED(status) || WEXITSTATUS(status) != 0)
+		else if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
 			result = 0;
 	}
 	return (result);
+}
+
+int main()
+{
+	return 0;
 }

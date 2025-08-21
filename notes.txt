@@ -5,6 +5,7 @@ lvl1
 		-> começa pelo fd[0] e STDOUT ;
 		-> 3 "exit(-1)" ;
 		-> usar uma parte da main() do subject ;
+		-> 46 linhas
 
 
 	picoshell:
@@ -12,14 +13,20 @@ lvl1
 
 		->na ultima parte, 5 e 5
 		-> tem UM "else if"
+		-> 60 linhas
 
 
-
+--------------//--------------
 
 lvl2
 	vbc:
 
 
+
+
+--------------//--------------
+
 geral:
+		-> ver como q poe linha no fim
 		-> --track-fds=yes ./a.out 
 		-> cc FLAGS

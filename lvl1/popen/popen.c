@@ -6,7 +6,7 @@
 /*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:57:56 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/20 15:56:35 by gcesar-n         ###   ########.fr       */
+/*   Updated: 2025/08/20 19:28:37 by gcesar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int ft_popen(const char *file, char *const argv[], char type)
 	if (pid == -1)
 		return (close_fd(fd), -1);
 
-	// processo filho
 	if (pid == 0)
 	{
 		if (type == 'r')
@@ -61,8 +60,6 @@ int ft_popen(const char *file, char *const argv[], char type)
 		execvp(file, argv);
 		exit (-1);
 	}
-
-	//processo pai
 	if (type == 'r')
 	{
 		close(fd[1]);
