@@ -20,13 +20,25 @@ lvl1
 
 lvl2
 	vbc:
+		-> n usa malloc(), realloc() ,write()
+		-> sao 6 modificações simples
 
+		-> parse_factor():
+				-> unsigned char!!!
+				-> declara dois nodes no total
+				-> primeiro node sem *, o segundo tem *
+				-> os dois returns n tem * nem &
+		
+		-> parse_term():
+				-> declara três nodes no total 
+				-> *left e *right tem *, só n que nao
 
 
 
 --------------//--------------
 
 geral:
-		-> ver como q poe linha no fim
 		-> --track-fds=yes ./a.out 
 		-> cc FLAGS
+		-> ver como q poe linha no fim
+		-> color theme

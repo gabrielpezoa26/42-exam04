@@ -62,9 +62,9 @@ int expect(char **s, char c)
 }
 
 /* ADDED: declarations of recursive parsing functions */
-static node *parse_expr_r(char **s);
-static node *parse_term   (char **s);
 static node *parse_factor (char **s);
+static node *parse_term   (char **s);
+static node *parse_expr_r(char **s);
 
 /* ADDED: parsing a factor (number or parenthesis) */
 static node *parse_factor(char **s)
@@ -75,12 +75,16 @@ static node *parse_factor(char **s)
 		(*s)++;
 		return new_node(n);
 	}
+
+
+
 	if (accept(s, '('))
 	{
 		node *e = parse_expr_r(s);
 		if (!e)
 			return NULL;
-		if (!expect(s, ')')) {         // MOD: closing parenthesis check
+		if (!expect(s, ')'))
+		{
 			destroy_tree(e);
 			return NULL;
 		}
@@ -90,12 +94,17 @@ static node *parse_factor(char **s)
 	return NULL;
 }
 
+
+
 /* ADDED: parsing a term (multiplications) */
 static node *parse_term(char **s)
 {
 	node *left = parse_factor(s);
 	if (!left)
 		return NULL;
+
+
+
 	while (accept(s, '*'))
 	{
 		node *right = parse_factor(s);
@@ -104,6 +113,9 @@ static node *parse_term(char **s)
 			destroy_tree(left);
 			return NULL;
 		}
+
+
+
 		node n = { .type = MULTI, .l = left, .r = right };
 		left = new_node(n);
 		if (!left)
@@ -153,12 +165,13 @@ node *parse_expr(char *s)
 
 int eval_tree(node *tree)
 {
-	switch (tree->type) {
+	switch (tree->type)
+	{
 		case ADD:   return eval_tree(tree->l) + eval_tree(tree->r);
 		case MULTI: return eval_tree(tree->l) * eval_tree(tree->r);
 		case VAL:   return tree->val;
 	}
-	return 0;  // should no happen, but who know's ?
+	return 0;  // MODIFIED: should no happen, but who know's ?
 }
 
 int main(int argc, char **argv)
@@ -170,5 +183,5 @@ int main(int argc, char **argv)
 		return 1;
 	printf("%d\n", eval_tree(tree));
 	destroy_tree(tree);
-	return 0;         // retorna 0 no final
+	return (0);         //MODIFIED:  retorna 0 no final
 }
