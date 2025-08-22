@@ -60,10 +60,10 @@ int expect(char **s, char c)
 	return (0);
 }
 
-//...
 static node *parse_basic(char **s);
 static node *parse_mult(char **s);
 static node *parse_add(char **s);
+
 
 static node *parse_basic(char **s)
 {
@@ -71,7 +71,7 @@ static node *parse_basic(char **s)
 	{
 		node n = { .type = VAL, .val = **s - '0', .l = NULL, .r = NULL };
 		(*s)++;
-		return new_node(n);
+		return (new_node(n));
 	}
 
 	if (accept(s, '('))
@@ -88,7 +88,6 @@ static node *parse_basic(char **s)
 	}
 	unexpected(**s);
 	return NULL;
-
 }
 
 static node *parse_mult(char **s)
@@ -96,9 +95,7 @@ static node *parse_mult(char **s)
 	node *left = parse_basic(s);
 	if (!left)
 		return NULL;
-	
 
-	
 	while(accept(s, '*'))
 	{
 		node *right = parse_basic(s);
@@ -108,6 +105,7 @@ static node *parse_mult(char **s)
 			return NULL;
 		}
 
+
 		node n = { .type = MULTI, .l = left, .r = right};
 		left = new_node(n);
 		if (!left)
@@ -116,14 +114,13 @@ static node *parse_mult(char **s)
 	return left;
 }
 
+
 static node *parse_add(char **s)
 {
 	node *left = parse_mult(s);
 	if (!left)
 		return NULL;
-	
 
-	
 	while(accept(s, '+'))
 	{
 		node *right = parse_mult(s);
@@ -133,6 +130,7 @@ static node *parse_add(char **s)
 			return NULL;
 		}
 
+
 		node n = { .type = ADD, .l = left, .r = right};
 		left = new_node(n);
 		if (!left)
@@ -141,17 +139,16 @@ static node *parse_add(char **s)
 	return left;
 }
 
-
-
 node    *parse_expr(char *s)
 {
 	char *p = s;
 	node *ret = parse_add(&p);
 	if (!ret)
-		return NULL;
+		return (NULL);
 
 
-	if (*p) 
+
+	if (*p)
 	{
 		unexpected(*p);
 		destroy_tree(ret);
