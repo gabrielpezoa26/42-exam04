@@ -23,16 +23,40 @@ lvl2
 		-> n usa malloc(), realloc() ,write()
 		-> sao 6 modificações simples
 
-		-> parse_factor():
-				-> unsigned char!!!
+
+
+		->parse_expr():
+				->so usa P, fica    &p  e dps  *p e dps *p 
+
+
+
+		-> parse_basic():
 				-> declara dois nodes no total
 				-> primeiro node sem *, o segundo tem *
-				-> os dois returns n tem * nem &
-		
-		-> parse_term():
+				-> os dois returns sem * sem  &
+
+
+
+		-> parse_mult():
 				-> declara três nodes no total 
 				-> *left e *right tem *, só n que nao
 
+
+
+		->parse_add():
+				->igual a parse term, só troca o * e o MULT, e a func q chama
+
+
+	node n = { .type = VAL,   .val = **s - '0',   .l = NULL, .r = NULL};
+	node n = { .type = MULTI, .l = left, .r = right };
+
+
+
+
+		->    n ==    temp_node
+		->    e ==    parsed
+		->    s ==    input_string
+		->    p ==    pointer
 
 
 --------------//--------------

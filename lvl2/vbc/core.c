@@ -13,9 +13,10 @@ typedef struct node {
 
 
 /* ADDED: declarations of recursive parsing functions */
-static node *parse_factor(char **s);
-static node *parse_term(char **s);
-static node *parse_expr_recursive(char **s);
+static node *parse_basic(char **s);
+static node *parse_mult(char **s);
+static node *parse_add(char **s);
+
 
 // node n;
 
@@ -24,7 +25,7 @@ static node *parse_expr_recursive(char **s);
 // n.l = NULL;
 // n.r = NULL;
 /* ADDED: parsing a factor (number or parenthesis) */
-static node *parse_factor(char **s)
+static node *parse_basic(char **s)
 {
 	if (isdigit((unsigned char)**s))
 	{
@@ -37,7 +38,7 @@ static node *parse_factor(char **s)
 
 	if (accept(s, '('))
 	{
-		node *e = parse_expr_recursive(s);
+		node *e = parse_add(s);
 		if (!e)
 			return NULL;
 		if (!expect(s, ')'))
@@ -54,9 +55,9 @@ static node *parse_factor(char **s)
 
 
 /* ADDED: parsing a term (multiplications) */
-static node *parse_term(char **s)
+static node *parse_mult(char **s)
 {
-	node *left = parse_factor(s);
+	node *left = parse_basic(s);
 	if (!left)
 		return NULL;
 
@@ -64,7 +65,7 @@ static node *parse_term(char **s)
 
 	while (accept(s, '*'))
 	{
-		node *right = parse_factor(s);
+		node *right = parse_basic(s);
 		if (!right)
 		{
 			destroy_tree(left);
@@ -85,10 +86,10 @@ static node *parse_term(char **s)
 
 
 /* ADDED: parsing an expression (additions) */
-/* THIS FUNCTION IS A COPY PASTE OF PARSE_TERM, YOU JUST HAVE TO REPLACE '*' by '+' !!!!!*/
-static node *parse_expr_recursive(char **s)
+/* THIS FUNCTION IS A COPY PASTE OF parse_mult, YOU JUST HAVE TO REPLACE '*' by '+' !!!!!*/
+static node *parse_add(char **s)
 {
-	node *left = parse_term(s);
+	node *left = parse_mult(s);
 	if (!left)
 		return NULL;
 
@@ -96,7 +97,7 @@ static node *parse_expr_recursive(char **s)
 
 	while (accept(s, '+'))
 	{
-		node *right = parse_term(s);
+		node *right = parse_mult(s);
 		if (!right)
 		{
 			destroy_tree(left);
@@ -117,7 +118,7 @@ static node *parse_expr_recursive(char **s)
 node	*parse_expr(char *s)
 {
 	char *p = s;
-	node *ret = parse_expr_recursive(&p);
+	node *ret = parse_add(&p);
 	if (!ret)
 		return NULL;
 

@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   practice.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gcesar-n <gcesar-n@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 16:31:39 by gcesar-n          #+#    #+#             */
-/*   Updated: 2025/08/21 16:31:40 by gcesar-n         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 typedef struct node {
@@ -27,7 +15,7 @@ typedef struct node {
 
 node    *new_node(node n)
 {
-	node *ret = calloc(1, sizeof(n));
+	node *ret = calloc(1, sizeof(*ret));
 	if (!ret)
 		return (NULL);
 	*ret = n;
@@ -51,12 +39,12 @@ void    unexpected(char c)
 	if (c)
 		printf("Unexpected token '%c'\n", c);
 	else
-		printf("Unexpected end of file\n");
+		printf("Unexpected end of input\n");
 }
 
 int accept(char **s, char c)
 {
-	if (**s)
+	if (**s == c)
 	{
 		(*s)++;
 		return (1);
@@ -72,14 +60,31 @@ int expect(char **s, char c)
 	return (0);
 }
 
-//...
+static node *parse_basic(char **s);
+static node *parse_mult(char **s);
+static node *parse_add(char **s);
+
+
+static node *parse_basic(char **s)
+{
+	
+}
+
+
+
 
 node    *parse_expr(char *s)
 {
-	//...
+	char *p = s;
+	node ret = parse_add(&p);
+	if (!ret)
+		return (NULL;)
+
+
 
 	if (*s) 
 	{
+		unexpected(*p)
 		destroy_tree(ret);
 		return (NULL);
 	}
@@ -97,6 +102,7 @@ int eval_tree(node *tree)
 		case VAL:
 			return (tree->val);
 	}
+	return 0;
 }
 
 int main(int argc, char **argv)
@@ -108,4 +114,5 @@ int main(int argc, char **argv)
 		return (1);
 	printf("%d\n", eval_tree(tree));
 	destroy_tree(tree);
+	return 0;
 }
