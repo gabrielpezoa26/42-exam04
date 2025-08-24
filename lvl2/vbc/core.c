@@ -17,14 +17,6 @@ static node *parse_basic(char **s);
 static node *parse_mult(char **s);
 static node *parse_add(char **s);
 
-
-// node n;
-
-// n.type = VAL;
-// n.val = **s - '0';
-// n.l = NULL;
-// n.r = NULL;
-/* ADDED: parsing a factor (number or parenthesis) */
 static node *parse_basic(char **s)
 {
 	if (isdigit((unsigned char)**s))
@@ -41,6 +33,7 @@ static node *parse_basic(char **s)
 		node *e = parse_add(s);
 		if (!e)
 			return NULL;
+
 		if (!expect(s, ')'))
 		{
 			destroy_tree(e);
